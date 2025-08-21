@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Cardapio {
     private ArrayList<Lanche> lanches = new ArrayList<>();
     private ArrayList<Bebida> bebidas = new ArrayList<>();
-    private ArrayList<Sobremesa> sobremesas = new ArrayList<>();
+    public ArrayList<Sobremesa> sobremesas = new ArrayList<>();
     private Lanche lanche;
     private Bebida bebida;
     private Sobremesa sobremesa;
@@ -28,21 +28,65 @@ public class Cardapio {
     }
 
     public void listarLanches() {
+        int contador = 0;
         System.out.println("======== Lanches ========");
         for (Lanche lanche : lanches) {
-            System.out.println(lanche.getNome() + " - R$" + lanche.getPreco());
+            contador++;
+            System.out.println(contador + " - " + lanche.getNome() + " - R$" + lanche.getPreco());
         }
     }
     public void listarBebidas() {
+        int contador = 0;
         System.out.println("======== Bebidas ========");
         for (Bebida bebida : bebidas) {
-            System.out.println(bebida.getNome() + " - R$" + bebida.getPreco());
+            contador++;
+            System.out.println(contador + " - " + bebida.getNome() + " - R$" + bebida.getPreco());
         }
     }
     public void listarSobremesas() {
+        int contador = 0;
         System.out.println("======== Sobremesas ========");
         for (Sobremesa sobremesa : sobremesas) {
-            System.out.println(sobremesa.getNome() + " - R$" + sobremesa.getPreco());
+            contador++;
+            System.out.println(contador + " - " + sobremesa.getNome() + " - R$" + sobremesa.getPreco());
         }
+    }
+    public Sobremesa getSobremesaIndice(int indice) {
+        if (indice >= 0 && indice < sobremesas.size()) {
+            return sobremesas.get(indice);
+        } else {
+            return null; // Retorna null se o índice for inválido
+        }
+    }
+    public Lanche getLancheIndice(int indice) {
+        if (indice >= 0 && indice < lanches.size()) {
+            return lanches.get(indice);
+        } else {
+            return null; // Retorna null se o índice for inválido
+        }
+    }
+    public Bebida getBebidaIndice(int indice) {
+        if (indice >= 0 && indice < bebidas.size()) {
+            return bebidas.get(indice);
+        } else {
+            return null; // Retorna null se o índice for inválido
+        }
+    }
+    // src/main/java/trier/atividades/lanchonete/Cardapio.java
+    public void inicializarCardapioPadrao() {
+        adicionarLanche("X-Burguer", 15.0, 50);
+        adicionarLanche("X-Salada", 18.0, 40);
+        adicionarLanche("X-Bacon", 20.0, 30);
+        adicionarLanche("X-Tudo", 25.0, 20);
+
+        adicionarBebida("Refrigerante", 5.0, 100);
+        adicionarBebida("Suco", 6.0, 80);
+        adicionarBebida("Água", 3.0, 150);
+        adicionarBebida("Cerveja", 8.0, 60);
+
+        adicionarSobremesa("Sorvete", 7.0, 70);
+        adicionarSobremesa("Bolo", 6.0, 50);
+        adicionarSobremesa("Pudim", 5.0, 40);
+        adicionarSobremesa("Torta", 8.0, 30);
     }
 }

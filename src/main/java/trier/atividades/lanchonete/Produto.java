@@ -4,6 +4,7 @@ public class Produto {
     private String nome;
     private double preco;
     private int estoque;
+    Cardapio cardapio = new Cardapio();
 
     public Produto(String nome, double preco) {
         this.nome = nome;
