@@ -55,21 +55,21 @@ public class Cardapio {
         if (indice >= 0 && indice < sobremesas.size()) {
             return sobremesas.get(indice);
         } else {
-            return null; // Retorna null se o índice for inválido
+            return null;
         }
     }
     public Lanche getLancheIndice(int indice) {
         if (indice >= 0 && indice < lanches.size()) {
             return lanches.get(indice);
         } else {
-            return null; // Retorna null se o índice for inválido
+            return null;
         }
     }
     public Bebida getBebidaIndice(int indice) {
         if (indice >= 0 && indice < bebidas.size()) {
             return bebidas.get(indice);
         } else {
-            return null; // Retorna null se o índice for inválido
+            return null;
         }
     }
     public void inicializarCardapioPadrao() {
