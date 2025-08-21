@@ -55,8 +55,15 @@ public class LanchoneteMain {
                                 System.out.println("Digite a quantidade: ");
                                 int quantidade = entrada.nextInt();
                                 entrada.nextLine();
-
                                 lancheEscolhido = cardapio.getLancheIndice(escolhaLanche - 1);
+
+                                if(lancheEscolhido != null && lancheEscolhido.getEstoque() >= quantidade) {
+                                    lancheEscolhido.reduzirEstoque(quantidade);
+                                } else {
+                                    System.err.println("Estoque insuficiente para o lanche escolhido.");
+                                    break;
+                                }
+
 
                                 for(int i = 0; i < quantidade; i++) {
                                     lista.add(lancheEscolhido);
@@ -71,6 +78,7 @@ public class LanchoneteMain {
                                 System.out.println("Digite a quantidade: ");
                                 quantidade = entrada.nextInt();
                                 entrada.nextLine();
+                                bebidaEscolhida.reduzirEstoque(quantidade);
 
                                 bebidaEscolhida = cardapio.getBebidaIndice(escolhaBebida - 1);
 
@@ -87,6 +95,7 @@ public class LanchoneteMain {
                                 System.out.println("Digite a quantidade: ");
                                 quantidade = entrada.nextInt();
                                 entrada.nextLine();
+                                sobremesaEscolhida.reduzirEstoque(quantidade);
 
                                 for(int i = 0; i < quantidade; i++) {
                                     sobremesaEscolhida = cardapio.getSobremesaIndice(escolhaSobremesa - 1);

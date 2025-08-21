@@ -72,9 +72,8 @@ public class Cardapio {
             return null; // Retorna null se o índice for inválido
         }
     }
-    // src/main/java/trier/atividades/lanchonete/Cardapio.java
     public void inicializarCardapioPadrao() {
-        adicionarLanche("X-Burguer", 15.0, 50);
+        adicionarLanche("X-Burguer", 15.0, 10);
         adicionarLanche("X-Salada", 18.0, 40);
         adicionarLanche("X-Bacon", 20.0, 30);
         adicionarLanche("X-Tudo", 25.0, 20);
