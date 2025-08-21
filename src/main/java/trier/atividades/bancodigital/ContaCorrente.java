@@ -1,6 +1,7 @@
 package trier.atividades.bancodigital;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ContaCorrente extends Conta{
     private double limiteCredito;
@@ -21,14 +22,18 @@ public class ContaCorrente extends Conta{
         if (getSaldo() > -200) {
             if (valor > 0 && valor <= getSaldo()) {
                 setSaldo(getSaldo() - valor);
-                System.out.println("Saque realizado com sucesso! Novo saldo: " + getSaldo());
-                getExtrato().adicionarMovimentacao("Saque: " + valor + " | Saldo: " + getSaldo());
+                System.out.println("Saque realizado com sucesso! Novo saldo: R$ " + getSaldo());
+                getExtrato().adicionarMovimentacao("Saque: R$ " + valor + " | Saldo: " + getSaldo());
+                String dataFormatada = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                getExtrato().adicionarMovimentacao("Data do saque: " + dataFormatada);
                 atualizarData();
                 verificarDataNegativo();
             } else if (valor > 0 && valor <= (getSaldo() + limiteCredito)) {
                 setSaldo(getSaldo() - valor);
-                System.out.println("Saque realizado utilizando crédito! Novo saldo: " + getSaldo());
-                getExtrato().adicionarMovimentacao("Saque: " + valor);
+                System.out.println("Saque realizado utilizando crédito! Novo saldo: R$ " + getSaldo());
+                getExtrato().adicionarMovimentacao("Saque: R$ " + valor);
+                String dataFormatada = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                getExtrato().adicionarMovimentacao("Data do saque: " + dataFormatada);
                 atualizarData();
                 verificarDataNegativo();
             } else {
@@ -44,8 +49,10 @@ public class ContaCorrente extends Conta{
             if (valor > 0 && valor <= getSaldo()) {
                 sacar(valor);
                 contaDestino.depositar(valor);
-                System.out.println("Transferência de " + valor + " realizada com sucesso para " + contaDestino.getCliente().getNome());
-                getExtrato().adicionarMovimentacao("Transferência: " + valor + " para " + contaDestino.getCliente().getNome());
+                System.out.println("Transferência de R$ " + valor + " realizada com sucesso para " + contaDestino.getCliente().getNome());
+                getExtrato().adicionarMovimentacao("Transferência: R$ " + valor + " para " + contaDestino.getCliente().getNome());
+                String dataFormatada = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                getExtrato().adicionarMovimentacao("Data da transferência: " + dataFormatada);
                 atualizarData();
                 verificarDataNegativo();
 
@@ -54,8 +61,10 @@ public class ContaCorrente extends Conta{
                 setSaldo(0);
                 limiteCredito -= valorUsadoCredito;
                 contaDestino.depositar(valor);
-                System.out.println("Transferência de " + valor + " realizada utilizando crédito para " + contaDestino.getCliente().getNome());
-                getExtrato().adicionarMovimentacao("Transferência: " + valor + " para " + contaDestino.getCliente().getNome());
+                System.out.println("Transferência de R$ " + valor + " realizada utilizando crédito para " + contaDestino.getCliente().getNome());
+                getExtrato().adicionarMovimentacao("Transferência: R$ " + valor + " para " + contaDestino.getCliente().getNome());
+                String dataFormatada = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                getExtrato().adicionarMovimentacao("Data da transferência: R$ " + dataFormatada);
                 atualizarData();
                 verificarDataNegativo();
             } else {

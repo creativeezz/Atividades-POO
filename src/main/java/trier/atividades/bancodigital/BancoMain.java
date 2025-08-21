@@ -19,7 +19,7 @@ public class BancoMain {
 
         ContaCorrente ccAna = new ContaCorrente(ana, 1000.0, true, 200.0);
         contas.add(ccAna);
-        ContaPoupanca cpTeste = new ContaPoupanca(testeDaSilva, 500.0, true);
+        ContaPoupanca cpTeste = new ContaPoupanca(testeDaSilva, 500.0, false);
         contas.add(cpTeste);
 
         ccAna.depositar(500.0);

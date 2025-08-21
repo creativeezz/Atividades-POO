@@ -1,6 +1,7 @@
 package trier.atividades.bancodigital;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Conta {
     private double saldo;
@@ -33,8 +34,10 @@ public abstract class Conta {
     public void depositar(double valor) {
         if (valor > 0) {
             saldo += valor;
-            System.out.println("Depósito realizado com sucesso! Novo saldo: " + saldo);
-            extrato.adicionarMovimentacao("Depósito: " + valor + " | Saldo: " + saldo);
+            System.out.println("Depósito realizado com sucesso! Novo saldo: R$ " + saldo);
+            extrato.adicionarMovimentacao("Depósito: " + valor + " | Saldo: R$ " + saldo);
+            String dataFormatada = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+            extrato.adicionarMovimentacao("Data do depósito: " + dataFormatada);
         } else {
             System.out.println("Valor de depósito inválido.");
         }
@@ -42,8 +45,10 @@ public abstract class Conta {
     public void sacar(double valor) {
         if (valor > 0 && valor <= saldo) {
             saldo -= valor;
-            System.out.println("Saque realizado com sucesso! Novo saldo: " + saldo);
-            extrato.adicionarMovimentacao("Saque: " + valor + " | Saldo: " + saldo);
+            System.out.println("Saque realizado com sucesso! Novo saldo: R$ " + saldo);
+            extrato.adicionarMovimentacao("Saque: " + valor + " | Saldo: R$ " + saldo);
+            String dataFormatada = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+            extrato.adicionarMovimentacao("Data do saque: " + dataFormatada);
             atualizarData();
             verificarDataNegativo();
 
@@ -55,8 +60,10 @@ public abstract class Conta {
         if (valor > 0 && valor <= saldo) {
             sacar(valor);
             contaDestino.depositar(valor);
-            System.out.println("Transferência de " + valor + " realizada com sucesso para " + contaDestino.getCliente().getNome());
-            extrato.adicionarMovimentacao("Transferência: " + valor + " para " + contaDestino.getCliente().getNome());
+            System.out.println("Transferência de R$ " + valor + " realizada com sucesso para " + contaDestino.getCliente().getNome());
+            extrato.adicionarMovimentacao("Transferência: R$ " + valor + " para " + contaDestino.getCliente().getNome());
+            String dataFormatada = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+            extrato.adicionarMovimentacao("Data da transferência: " + dataFormatada);
             atualizarData();
             verificarDataNegativo();
         } else {

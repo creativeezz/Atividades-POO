@@ -10,11 +10,12 @@ public class Extrato {
     }
 
     public void imprimirExtrato() {
-        System.out.println("=== Extrato ===");
+        System.out.println("========= Extrato =========");
         if (movimentacoes.isEmpty()) {
             System.out.println("Nenhuma movimentação registrada.");
         } else {
             for (String movimentacao : movimentacoes) {
+                System.out.println("========================================");
                 System.out.println(movimentacao);
             }
         }
