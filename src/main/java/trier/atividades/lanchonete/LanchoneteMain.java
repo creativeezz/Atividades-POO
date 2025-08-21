@@ -1,5 +1,6 @@
 package trier.atividades.lanchonete;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LanchoneteMain {
@@ -8,13 +9,20 @@ public class LanchoneteMain {
         int opcao = 0;
         Cardapio cardapio = new Cardapio();
 
-        Lanche lanche = new Lanche("X-Burger", 15.0);
-        Bebida bebida = new Bebida("Refrigerante", 5.0);
-        Sobremesa sobremesa = new Sobremesa("Sorvete", 7.0);
+        cardapio.adicionarLanche("X-Burguer", 15.0, 50);
+        cardapio.adicionarLanche("X-Salada", 18.0, 40);
+        cardapio.adicionarLanche("X-Bacon", 20.0, 30);
+        cardapio.adicionarLanche("X-Tudo", 25.0, 20);
 
-        cardapio.adicionarLanche(lanche);
-        cardapio.adicionarBebida(bebida);
-        cardapio.adicionarSobremesa(sobremesa);
+        cardapio.adicionarBebida("Refrigerante", 5.0, 100);
+        cardapio.adicionarBebida("Suco", 6.0, 80);
+        cardapio.adicionarBebida("Água", 3.0, 150);
+        cardapio.adicionarBebida("Cerveja", 8.0, 60);
+
+        cardapio.adicionarSobremesa("Sorvete", 7.0, 70);
+        cardapio.adicionarSobremesa("Bolo", 6.0, 50);
+        cardapio.adicionarSobremesa("Pudim", 5.0, 40);
+        cardapio.adicionarSobremesa("Torta", 8.0, 30);
 
         do {
             System.out.println("======== Lanchonete Digital ========");
@@ -52,6 +60,7 @@ public class LanchoneteMain {
                             break;
                         case 2:
                             cardapio.listarBebidas();
+                            break;
                         case 3:
                             cardapio.listarSobremesas();
                             break;

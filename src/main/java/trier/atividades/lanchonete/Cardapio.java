@@ -8,20 +8,23 @@ public class Cardapio {
     private ArrayList<Sobremesa> sobremesas = new ArrayList<>();
     private Lanche lanche;
     private Bebida bebida;
+    private Sobremesa sobremesa;
 
-    public void adicionarLanche(Lanche lanche) {
-
+    public void adicionarLanche(String nome, double preco, int estoque) {
+        lanche = new Lanche(nome, preco);
+        lanche.setEstoque(estoque);
+        lanches.add(lanche);
     }
 
-    public void adicionarBebida(Bebida bebida) {
-        bebida = new Bebida("Refrigerante", 5.0);
-        bebida.setEstoque(50);
+    public void adicionarBebida(String nome, double preco, int estoque) {
+        bebida = new Bebida(nome, preco);
+        bebida.setEstoque(estoque);
         bebidas.add(bebida);
     }
-    public void adicionarSobremesa(Sobremesa sobremesa) {
-        Sobremesa sorvete = new Sobremesa("Sorvete", 7.0);
-        sorvete.setEstoque(30);
-        sobremesas.add(sorvete);
+    public void adicionarSobremesa(String nome, double preco, int estoque) {
+        sobremesa = new Sobremesa(nome, preco);
+        sobremesa.setEstoque(estoque);
+        sobremesas.add(sobremesa);
     }
 
     public void listarLanches() {
@@ -32,8 +35,8 @@ public class Cardapio {
     }
     public void listarBebidas() {
         System.out.println("======== Bebidas ========");
-        for (Bebida bebidass : bebidas) {
-            System.out.println(bebidass.getNome() + " - R$" + bebidass.getPreco());
+        for (Bebida bebida : bebidas) {
+            System.out.println(bebida.getNome() + " - R$" + bebida.getPreco());
         }
     }
     public void listarSobremesas() {
