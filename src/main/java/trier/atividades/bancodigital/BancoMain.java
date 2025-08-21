@@ -11,11 +11,16 @@ public class BancoMain {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         ArrayList<Conta> contas = new ArrayList<Conta>();
 
+        //teste inicial
         Cliente testeDaSilva = new Cliente("testeDaSilva", "123");
+        clientes.add(testeDaSilva);
         Cliente ana = new  Cliente("Ana", "12");
+        clientes.add(ana);
 
         ContaCorrente ccAna = new ContaCorrente(ana, 1000.0, true, 500.0);
+        contas.add(ccAna);
         ContaPoupanca cpTeste = new ContaPoupanca(testeDaSilva, 500.0, true);
+        contas.add(cpTeste);
 
         do {
             System.out.println("==========================");
@@ -100,7 +105,25 @@ public class BancoMain {
                                     contaEncontrada.sacar(valorSaque);
                                     break;
                                 case 3:
-                                    System.out.println("Transferência não implementada.");
+                                    System.out.println("Digite o CPF do destinatário: ");
+                                    String cpfDestino = entrada.nextLine();
+
+                                    Conta contaDestino = null;
+                                    boolean contaDestinoEncontrada = false;
+                                    for (Conta conta : contas) {
+                                        if (conta.getCliente().getCpf().equals(cpfDestino)) {
+                                            contaDestino = conta;
+                                            contaDestinoEncontrada = true;
+                                            break;
+                                        }
+                                    }
+                                    if (contaDestinoEncontrada) {
+                                        System.out.print("Digite o valor da transferência: ");
+                                        double valorTransferencia = entrada.nextDouble();
+                                        contaEncontrada.transferir(valorTransferencia, contaDestino);
+                                    } else {
+                                        System.out.println("Conta do destinatário não encontrada!");
+                                    }
                                     break;
                                 case 4:
                                     contaEncontrada.getExtrato().imprimirExtrato();

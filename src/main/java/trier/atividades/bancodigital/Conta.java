@@ -44,6 +44,16 @@ public abstract class Conta {
             System.out.println("Valor de saque inválido ou saldo insuficiente.");
         }
     }
+    public void transferir(double valor, Conta contaDestino) {
+        if (valor > 0 && valor <= saldo) {
+            sacar(valor);
+            contaDestino.depositar(valor);
+            System.out.println("Transferência de " + valor + " realizada com sucesso para " + contaDestino.getCliente().getNome());
+            extrato.adicionarMovimentacao("Transferência: " + valor + " para " + contaDestino.getCliente().getNome());
+        } else {
+            System.out.println("Valor de transferência inválido ou saldo insuficiente.");
+        }
+    }
     public Extrato getExtrato() {
         return extrato;
     }
