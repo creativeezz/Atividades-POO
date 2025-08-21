@@ -24,8 +24,8 @@ public abstract class Conta {
     public Cliente getCliente() {
         return titular;
     }
-    public void setCliente(Cliente cliente) {
-        this.titular = cliente;
+    public void setCliente(Cliente titular) {
+        this.titular = titular;
     }
     public boolean taAtiva() {
         return ativa;

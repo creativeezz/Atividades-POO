@@ -17,10 +17,14 @@ public class BancoMain {
         Cliente ana = new  Cliente("Ana", "12");
         clientes.add(ana);
 
-        ContaCorrente ccAna = new ContaCorrente(ana, 1000.0, true, 500.0);
+        ContaCorrente ccAna = new ContaCorrente(ana, 1000.0, true, 200.0);
         contas.add(ccAna);
         ContaPoupanca cpTeste = new ContaPoupanca(testeDaSilva, 500.0, true);
         contas.add(cpTeste);
+
+        ccAna.depositar(500.0);
+        ccAna.sacar(200.0);
+        ccAna.transferir(100.0, cpTeste);
 
         do {
             System.out.println("==========================");
@@ -62,7 +66,7 @@ public class BancoMain {
                     break;
                 case 2:
                     System.out.println("=== Ver Conta ===");
-                    System.out.println("Digite o CPF do cliente para ver a conta: ");
+                    System.out.println("Digite o seu CPF: ");
                     String cpfConsulta = entrada.nextLine();
 
                     boolean encontrado = false;
@@ -78,7 +82,6 @@ public class BancoMain {
                     if (encontrado == true && contaEncontrada.taAtiva() == true) {
                         System.out.println("Bem-vindo de volta, " + contaEncontrada.getCliente().getNome() + "!");
                         System.out.println("Saldo: R$" + contaEncontrada.getSaldo());
-                        System.out.println("Status da conta: " + (contaEncontrada.taAtiva() ? "Ativa" : "Inativa"));
 
                         int acaoConta = 0;
 
@@ -88,7 +91,8 @@ public class BancoMain {
                             System.out.println("2 - Sacar");
                             System.out.println("3 - Transferir");
                             System.out.println("4 - Ver Extrato");
-                            System.out.println("5 - Voltar");
+                            System.out.println("5 - Ver Saldo");
+                            System.out.println("6 - Voltar");
                             System.out.print("Escolha uma opção: ");
                             acaoConta = entrada.nextInt();
                             entrada.nextLine();
@@ -129,12 +133,15 @@ public class BancoMain {
                                     contaEncontrada.getExtrato().imprimirExtrato();
                                     break;
                                 case 5:
+                                    System.out.println("Saldo atual: R$" + contaEncontrada.getSaldo());
+                                    break;
+                                case 6:
                                     System.out.println("Voltando ao menu principal...");
                                     break;
                                 default:
                                     System.out.println("Opção inválida! Por favor, escolha uma opção válida.");
                             }
-                        } while (acaoConta != 5);
+                        } while (acaoConta != 6);
                     } else {
                         System.out.println("Cliente não encontrado ou conta inativa.");
                     }
