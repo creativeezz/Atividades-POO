@@ -8,21 +8,14 @@ public class BancoMain {
 
         Scanner entrada = new Scanner(System.in);
         int opcao = 0;
-        ArrayList<Cliente> clientes = new ArrayList<>();
-        ArrayList<Conta> contas = new ArrayList<>();
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        ArrayList<Conta> contas = new ArrayList<Conta>();
 
         Cliente testeDaSilva = new Cliente("testeDaSilva", "123");
         Cliente ana = new  Cliente("Ana", "12");
 
         ContaCorrente ccAna = new ContaCorrente(ana, 1000.0, true, 500.0);
         ContaPoupanca cpTeste = new ContaPoupanca(testeDaSilva, 500.0, true);
-
-        ccAna.depositar(500);
-        ccAna.sacar(1400);
-        ccAna.getSaldo();
-        cpTeste.depositar(200);
-        cpTeste.sacar(100);
-        cpTeste.getSaldo();
 
         do {
             System.out.println("==========================");
@@ -80,36 +73,45 @@ public class BancoMain {
                     if (encontrado == true) {
                         System.out.println("Bem-vindo de volta, " + contaEncontrada.getCliente().getNome() + "!");
                         System.out.println("Saldo: R$" + contaEncontrada.getSaldo());
-                        System.out.println("Status da conta: " + (contaEncontrada.isAtiva() ? "Ativa" : "Inativa"));
+                        System.out.println("Status da conta: " + (contaEncontrada.taAtiva() ? "Ativa" : "Inativa"));
 
-                        System.out.println("1 - Depositar");
-                        System.out.println("2 - Sacar");
-                        System.out.println("3 - Transferir");
-                        System.out.println("4 - Voltar");
-                        System.out.print("Escolha uma opção: ");
-                        int acaoConta = entrada.nextInt();
-                        entrada.nextLine();
+                        int acaoConta = 0;
 
-                        switch (acaoConta) {
-                            case 1:
-                                System.out.print("Digite o valor do depósito: ");
-                                double valorDeposito = entrada.nextDouble();
-                                contaEncontrada.depositar(valorDeposito);
-                                break;
-                            case 2:
-                                System.out.print("Digite o valor do saque: ");
-                                double valorSaque = entrada.nextDouble();
-                                contaEncontrada.sacar(valorSaque);
-                                break;
-                            case 3:
-                                System.out.println("Transferência não implementada.");
-                                break;
-                            case 4:
-                                System.out.println("Voltando ao menu principal...");
-                                break;
-                            default:
-                                System.out.println("Opção inválida! Por favor, escolha uma opção válida.");
-                        }
+                        do {
+                            System.out.println("=== Ações da Conta ===");
+                            System.out.println("1 - Depositar");
+                            System.out.println("2 - Sacar");
+                            System.out.println("3 - Transferir");
+                            System.out.println("4 - Ver Extrato");
+                            System.out.println("5 - Voltar");
+                            System.out.print("Escolha uma opção: ");
+                            acaoConta = entrada.nextInt();
+                            entrada.nextLine();
+
+                            switch (acaoConta) {
+                                case 1:
+                                    System.out.print("Digite o valor do depósito: ");
+                                    double valorDeposito = entrada.nextDouble();
+                                    contaEncontrada.depositar(valorDeposito);
+                                    break;
+                                case 2:
+                                    System.out.print("Digite o valor do saque: ");
+                                    double valorSaque = entrada.nextDouble();
+                                    contaEncontrada.sacar(valorSaque);
+                                    break;
+                                case 3:
+                                    System.out.println("Transferência não implementada.");
+                                    break;
+                                case 4:
+                                    contaEncontrada.getExtrato().imprimirExtrato();
+                                    break;
+                                case 5:
+                                    System.out.println("Voltando ao menu principal...");
+                                    break;
+                                default:
+                                    System.out.println("Opção inválida! Por favor, escolha uma opção válida.");
+                            }
+                        } while (acaoConta != 5);
                     } else {
                         System.out.println("Cliente não encontrado!");
                     }
