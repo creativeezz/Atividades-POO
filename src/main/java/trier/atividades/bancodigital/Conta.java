@@ -1,9 +1,13 @@
 package trier.atividades.bancodigital;
 
+import java.time.LocalDateTime;
+
 public abstract class Conta {
     private double saldo;
     private Cliente titular;
     private boolean ativa;
+    private LocalDateTime dataNegativo;
+    private LocalDateTime dataCriacao;
     private Extrato extrato = new Extrato();
 
     public Conta(Cliente titular, double saldo, boolean ativa) {
@@ -40,6 +44,9 @@ public abstract class Conta {
             saldo -= valor;
             System.out.println("Saque realizado com sucesso! Novo saldo: " + saldo);
             extrato.adicionarMovimentacao("Saque: " + valor + " | Saldo: " + saldo);
+            atualizarData();
+            verificarDataNegativo();
+
         } else {
             System.out.println("Valor de saque inválido ou saldo insuficiente.");
         }
@@ -50,11 +57,31 @@ public abstract class Conta {
             contaDestino.depositar(valor);
             System.out.println("Transferência de " + valor + " realizada com sucesso para " + contaDestino.getCliente().getNome());
             extrato.adicionarMovimentacao("Transferência: " + valor + " para " + contaDestino.getCliente().getNome());
+            atualizarData();
+            verificarDataNegativo();
         } else {
             System.out.println("Valor de transferência inválido ou saldo insuficiente.");
         }
     }
     public Extrato getExtrato() {
         return extrato;
+    }
+    public void atualizarData() {
+        if (saldo < 0 && dataNegativo == null) {
+            dataNegativo = LocalDateTime.now();
+        } else {
+            dataNegativo = null;
+        }
+    }
+    public void verificarDataNegativo() {
+        if (saldo < 0 && dataNegativo != null) {
+            int dias = (int) java.time.Duration.between(dataNegativo, LocalDateTime.now()).toDays();
+
+            if (dias > 30) {
+                ativa = false;
+            }
+        } else {
+            ativa = true;
+        }
     }
 }

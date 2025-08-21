@@ -75,7 +75,7 @@ public class BancoMain {
                             break;
                         }
                     }
-                    if (encontrado == true) {
+                    if (encontrado == true && contaEncontrada.taAtiva() == true) {
                         System.out.println("Bem-vindo de volta, " + contaEncontrada.getCliente().getNome() + "!");
                         System.out.println("Saldo: R$" + contaEncontrada.getSaldo());
                         System.out.println("Status da conta: " + (contaEncontrada.taAtiva() ? "Ativa" : "Inativa"));
@@ -136,7 +136,7 @@ public class BancoMain {
                             }
                         } while (acaoConta != 5);
                     } else {
-                        System.out.println("Cliente não encontrado!");
+                        System.out.println("Cliente não encontrado ou conta inativa.");
                     }
                     break;
                 case 3:
