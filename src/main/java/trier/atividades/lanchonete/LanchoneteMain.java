@@ -8,16 +8,20 @@ public class LanchoneteMain {
         Scanner entrada = new Scanner(System.in);
         int opcao = 0;
         int escolhaCardapio = 0;
+
         Cardapio cardapio = new Cardapio();
-        ArrayList<Produto> lista = new ArrayList<>();
         cardapio.inicializarCardapioPadrao();
+
+        RelatorioVendas relatorioVendas = new RelatorioVendas();
+        ArrayList<Produto> lista = new ArrayList<>();
 
         do {
             System.out.println("======== Lanchonete Digital ========");
             System.out.println("1. Cadastrar Cliente");
             System.out.println("2. Ver cardápio");
             System.out.println("3. Ver carrinho");
-            System.out.println("4. Sair");
+            System.out.println("4. Relatório de Vendas");
+            System.out.println("5. Sair");
             opcao = entrada.nextInt();
             entrada.nextLine();
 
@@ -50,56 +54,60 @@ public class LanchoneteMain {
                                 cardapio.listarLanches();
                                 System.out.println("Digite a opção: ");
                                 int escolhaLanche = entrada.nextInt();
-                                Lanche lancheEscolhido = null;
 
                                 System.out.println("Digite a quantidade: ");
                                 int quantidade = entrada.nextInt();
                                 entrada.nextLine();
-                                lancheEscolhido = cardapio.getLancheIndice(escolhaLanche - 1);
 
-                                if(lancheEscolhido != null && lancheEscolhido.getEstoque() >= quantidade) {
+                                Lanche lancheEscolhido = cardapio.getLancheIndice(escolhaLanche - 1);
+
+                                if (lancheEscolhido != null && lancheEscolhido.getEstoque() >= quantidade) {
                                     lancheEscolhido.reduzirEstoque(quantidade);
+                                    for (int i = 0; i < quantidade; i++) {
+                                        lista.add(lancheEscolhido);
+                                    }
                                 } else {
                                     System.err.println("Estoque insuficiente para o lanche escolhido.");
-                                    break;
                                 }
 
-
-                                for(int i = 0; i < quantidade; i++) {
-                                    lista.add(lancheEscolhido);
-                                }
                                 break;
                             case 2:
                                 cardapio.listarBebidas();
                                 System.out.println("Digite a opção: ");
                                 int escolhaBebida = entrada.nextInt();
 
-                                Bebida bebidaEscolhida = null;
                                 System.out.println("Digite a quantidade: ");
                                 quantidade = entrada.nextInt();
                                 entrada.nextLine();
-                                bebidaEscolhida.reduzirEstoque(quantidade);
 
-                                bebidaEscolhida = cardapio.getBebidaIndice(escolhaBebida - 1);
-
-                                for(int i = 0; i < quantidade; i++) {
-                                    lista.add(bebidaEscolhida);
+                                Bebida bebidaEscolhida = cardapio.getBebidaIndice(escolhaBebida - 1);
+                                if (bebidaEscolhida != null && bebidaEscolhida.getEstoque() >= quantidade) {
+                                    bebidaEscolhida.reduzirEstoque(quantidade);
+                                    for (int i = 0; i < quantidade; i++) {
+                                        lista.add(bebidaEscolhida);
+                                    }
+                                } else {
+                                    System.err.println("Estoque insuficiente para a bebida escolhida.");
                                 }
+
                                 break;
                             case 3:
                                 cardapio.listarSobremesas();
                                 System.out.println("Digite a opção: ");
                                 int escolhaSobremesa = entrada.nextInt();
 
-                                Sobremesa sobremesaEscolhida = null;
                                 System.out.println("Digite a quantidade: ");
                                 quantidade = entrada.nextInt();
                                 entrada.nextLine();
-                                sobremesaEscolhida.reduzirEstoque(quantidade);
 
-                                for(int i = 0; i < quantidade; i++) {
-                                    sobremesaEscolhida = cardapio.getSobremesaIndice(escolhaSobremesa - 1);
-                                    lista.add(sobremesaEscolhida);
+                                Sobremesa sobremesaEscolhida = cardapio.getSobremesaIndice(escolhaSobremesa - 1);
+                                if (sobremesaEscolhida != null && sobremesaEscolhida.getEstoque() >= quantidade) {
+                                    sobremesaEscolhida.reduzirEstoque(quantidade);
+                                    for (int i = 0; i < quantidade; i++) {
+                                        lista.add(sobremesaEscolhida);
+                                    }
+                                } else {
+                                    System.err.println("Estoque insuficiente para a sobremesa escolhida.");
                                 }
                                 break;
                             case 4:
@@ -129,6 +137,8 @@ public class LanchoneteMain {
                         if(taxaServico == 1) {
                             total += total * 0.10;
                             System.out.println("Taxa de serviço adicionada. Total com taxa: R$" + total);
+                        } else if (taxaServico == 2) {
+                            System.out.println("Taxa de serviço não adicionada. Total: R$" + total);
                         } else {
                             System.err.println("Opção inválida! Por favor, escolha uma opção válida.");
                         }
@@ -138,6 +148,9 @@ public class LanchoneteMain {
                         entrada.nextLine();
 
                         if(finalizarPedido == 1){
+                            for(Produto produto : lista) {
+                                relatorioVendas.registrarVenda(produto, 1);
+                            }
                             System.out.println("Pedido finalizado com sucesso!");
                             System.out.println("Total a pagar: R$" + total);
                             lista.clear();
@@ -149,12 +162,16 @@ public class LanchoneteMain {
                     }
                     break;
                 case 4:
+                    relatorioVendas.exibirRelatorio();
+                    break;
+                case 5:
                     System.out.println("Saindo do sistema...");
                     break;
                 default:
                     System.err.println("Opção inválida! Por favor, escolha uma opção válida.");
+                    break;
             }
 
-        } while (opcao != 4);
+        } while (opcao != 5);
     }
 }
